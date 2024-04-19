@@ -1,21 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import githubLogo from "../assets/images/githubLogo.svg";
 import "react-toastify/dist/ReactToastify.css";
-// import { useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 const Home = () => {
   const token = import.meta.env.VITE_GITHUB_TOKEN;
   const [user, setUser] = useState(null);
-  const [username, setUsername] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const getUserDetails = async () => {
-    setLoading(true);
     try {
       const response = await axios.get(
-        `https://api.github.com/users/${username}`,
+        `https://api.github.com/users/codeAmbivert`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -24,46 +20,22 @@ const Home = () => {
       );
 
       setUser(response);
-      setLoading(false);
     } catch (error) {
       toast.error(error?.response?.data?.message);
-      setLoading(false);
     }
   };
+
+  console.log(user  );
+
+  useEffect(() => {
+    getUserDetails();
+  }, []);
 
   return (
     <div className="min-h-[100vh] w-full bg-[#010409]">
       <ToastContainer />
       <div className="min-h-[100vh] max-w-6xl mx-auto pt-20 p-5 w-full">
         <div className="w-full flex flex-col items-center">
-          <div className="flex flex-wrap gap-5 justify-between items-center w-full text-white">
-            <div className="max-w-2xl min-w-72 bg-[#0D1117] w-full p-2 border border-[#30363D] rounded-xl flex gap-2 items-center">
-              <input
-                type="text"
-                name="userName"
-                value={username}
-                placeholder="Input Github Username"
-                className="focus:outline-none p-1 px-4 w-full rounded-tl-md rounded-bl-md border font-medium text-lg border-[#30363D] bg-[#0D1117] text-white"
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <button
-                className={`bg-[#292E36] h-full rounded-tr-md rounded-br-md p-1 w-40 text-white text-center border font-medium text-lg border-[#30363D] ${
-                  loading ? "cursor-not-allowed" : "cursor-pointer"
-                }`}
-                disabled={loading ? true : false}
-                onClick={() => getUserDetails()}
-              >
-                {loading ? "Searching..." : "Search"}
-              </button>
-            </div>
-            <div
-              className={`bg-[#292E36] h-full rounded-md p-1 w-40 text-white text-center border font-medium text-lg border-[#30363D] cursor-pointer`}
-              onClick={() => setUser(null)}
-            >
-              Clear User
-            </div>
-          </div>
-
           {user ? (
             <div className="w-full flex gap-5 mt-10">
               <div className="w-1/4">
@@ -92,7 +64,7 @@ const Home = () => {
                 </div>
                 <div className="text-start mt-5 flex flex-col gap-2 text-[#656E76]">
                   <Link
-                    to={`/repositories/${user?.data?.login}`}
+                    to={`/repositories`}
                     className="text-blue-400 font-medium"
                   >
                     Goto Repositories

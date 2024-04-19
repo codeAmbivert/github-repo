@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Repository from "./pages/Repository";
 import "./App.css";
+import Repositories from "./pages/Repositories";
+import Repository from "./pages/Repository";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   return (
@@ -9,7 +11,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="repositories/:id" element={<Repository />} />
+          <Route path="repositories" element={<Repositories />} />
+          <Route path="repository/:id" element={<Repository />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </div>

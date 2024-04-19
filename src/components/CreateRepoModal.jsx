@@ -1,11 +1,11 @@
 import { useState } from "react";
 import closeIcon from "../assets/images/close-svgrepo-com.svg";
 import axios from "axios";
-import { data } from "autoprefixer";
 
-const CreateRepoModdal = ({ open }) => {
+const CreateRepoModdal = ({ open, onClose, refreshRepos }) => {
   const token = import.meta.env.VITE_GITHUB_TOKEN;
   const [formData, setFormData] = useState({ name: "", description: "" });
+  const disable = !formData.name || !formData.description;
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -26,7 +26,7 @@ const CreateRepoModdal = ({ open }) => {
         }
       );
       console.log(response?.data);
-      open().refreshRepos();
+      refreshRepos();
     } catch (error) {
       console.log(error?.response);
     }
@@ -34,7 +34,7 @@ const CreateRepoModdal = ({ open }) => {
 
   console.log(formData);
 
-  if (!open().openState) return;
+  if (!open) return;
   return (
     <div className="fixed top-0 left-0 h-full w-full bg-white bg-opacity-50 flex justify-center items-center">
       <div className="p-3 max-w-3xl w-full bg-white rounded-lg m-5">
@@ -42,7 +42,7 @@ const CreateRepoModdal = ({ open }) => {
           src={closeIcon}
           alt="close"
           className="ml-auto h-6 w-6 cursor-pointer"
-          onClick={() => open().setOpenState(false)}
+          onClick={() => onClose(false)}
         />
 
         <div className="flex flex-col justify-center items-center gap-3 mt-5">
@@ -67,12 +67,18 @@ const CreateRepoModdal = ({ open }) => {
             />
           </div>
 
-          <div
-            className={`bg-[#0D1117] mt-5 h-full rounded-md p-1 w-40 text-white text-center border font-medium text-lg border-[#30363D] cursor-pointer`}
+          <button
+            className={`relative overflow-hidden bg-[#0D1117] mt-5 h-full rounded-md p-1 w-40 text-white text-center border font-medium text-lg border-[#30363D] ${
+              disable ? "cursor-not-allowed" : "cursor-pointer"
+            } `}
+            disabled={disable}
             onClick={handleCreateRepo}
           >
             Create Repo
-          </div>
+            {disable && (
+              <div className="absolute w-full h-full bg-white bg-opacity-45" />
+            )}
+          </button>
         </div>
       </div>
     </div>
