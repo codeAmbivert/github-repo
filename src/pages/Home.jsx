@@ -12,7 +12,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
 
   const getUserDetails = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const response = await axios.get(
         `https://api.github.com/users/${username}`,
@@ -77,7 +77,7 @@ const Home = () => {
               </div>
               <div className="w-full border-2 border-[#30363D] rounded-xl p-5 text-white">
                 <div className="flex justify-between items-center flex-wrap gap-5">
-                  <div>
+                  <div className="text-start">
                     <h1 className="font-semibold text-3xl">
                       {user?.data?.name}
                     </h1>
@@ -90,7 +90,7 @@ const Home = () => {
                     <div>Following: {user?.data?.following}</div>
                   </div>
                 </div>
-                <div className="mt-5 flex flex-col gap-2 text-[#656E76]">
+                <div className="text-start mt-5 flex flex-col gap-2 text-[#656E76]">
                   <Link
                     to={`/repositories/${user?.data?.login}`}
                     className="text-blue-400 font-medium"
