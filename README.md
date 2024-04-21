@@ -22,7 +22,6 @@ This page has a component whose job is to catch errors that would normally break
 ### The 404 Error page
 This page is what appears when a user enter a wrong path into the brower. It displays a message that let's the user know they've entered a wrong patht and then redirects them to the home page after 10 seconds 
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+- [The link to the working site](https://github-repo-32gy.vercel.app/)
