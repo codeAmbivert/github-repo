@@ -35,9 +35,9 @@ const Home = () => {
     <div className="min-h-[100vh] w-full bg-[#010409]">
       <ToastContainer />
 
-      <div className="flex justify-start">
-        <Link to="/" className="text-xl text-blue-400">
-          &lt;codeAmbivert /&gt;
+      <div className="flex flex-col items-start gap-5">
+        <Link to="/" className="text:lg sm:text-xl text-blue-400">
+          &lt;ALT/SOE/023/2353.&gt;
         </Link>
       </div>
       <div className="min-h-[100vh] max-w-6xl mx-auto pt-20 w-full">
@@ -111,6 +111,13 @@ const Home = () => {
                       {user?.data?.total_private_repos}
                     </p>
                   )}
+
+                  <Link
+                    to={`/error-boundary`}
+                    className="text-blue-400 font-medium"
+                  >
+                    Error boundary page
+                  </Link>
                 </div>
               </div>
             </div>

@@ -33,15 +33,14 @@ const Repository = () => {
     }
   };
 
-  console.log(repo);
   useEffect(() => {
     getRepo();
   }, []);
   return (
     <div className="min-h-[100vh] w-full bg-[#010409]">
-      <div className="flex justify-start">
-        <Link to="/" className="text-xl text-blue-400">
-          &lt;codeAmbivert /&gt;
+      <div className="flex justify-between">
+        <Link to="/" className="text:lg sm:text-xl text-blue-400">
+          &lt;ALT/SOE/023/2353.&gt;
         </Link>
       </div>
       <div className="min-h-[100vh] max-w-6xl mx-auto pt-20 w-full">

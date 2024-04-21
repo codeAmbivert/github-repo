@@ -17,6 +17,7 @@ const Repositories = () => {
   const [openCreate, setOpenCreate] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
+  const [loading, setLoading] = useState(true);
   const reposPerPage = 10;
 
   // console.log({ totalPagenations });
@@ -32,8 +33,10 @@ const Repositories = () => {
         }
       );
       setRepos(response?.data);
+      setLoading(false);
     } catch (error) {
       toast.error(error?.message);
+      setLoading(false);
     }
   };
 
@@ -43,8 +46,8 @@ const Repositories = () => {
   return (
     <main className="min-h-[100vh] w-full bg-[#010409] text-white">
       <div className="flex justify-start">
-        <Link to="/" className="text-xl text-blue-400">
-          &lt;codeAmbivert /&gt;
+        <Link to="/" className="text:lg sm:text-xl text-blue-400">
+          &lt;ALT/SOE/023/2353.&gt;
         </Link>
       </div>
       <div className="min-h-[100vh] max-w-6xl mx-auto pt-20 w-full">
@@ -73,6 +76,7 @@ const Repositories = () => {
 
         {search.length < 1 ? (
           <div className="mt-5 w-full">
+            <p className="text-lg font-bold">{loading && "Loading..."}</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {repos.map((item, index) => {
                 const startIndex = (currentPage - 1) * reposPerPage;
