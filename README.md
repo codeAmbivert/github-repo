@@ -1,6 +1,11 @@
 # Web App to fetch and update github repositories
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository has 5 pages.
+- The Index page
+- The Reposities page
+- The Repositiry page
+- The Error boundary page
+- The 404 error page
 
 Currently, two official plugins are available:
 
