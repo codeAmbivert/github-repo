@@ -21,11 +21,11 @@ const Home = () => {
 
       setUser(response);
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.message);
     }
   };
 
-  console.log(user  );
+  console.log(user);
 
   useEffect(() => {
     getUserDetails();
@@ -34,11 +34,17 @@ const Home = () => {
   return (
     <div className="min-h-[100vh] w-full bg-[#010409]">
       <ToastContainer />
-      <div className="min-h-[100vh] max-w-6xl mx-auto pt-20 p-5 w-full">
+
+      <div className="flex justify-start">
+        <Link to="/" className="text-xl text-blue-400">
+          &lt;codeAmbivert /&gt;
+        </Link>
+      </div>
+      <div className="min-h-[100vh] max-w-6xl mx-auto pt-20 w-full">
         <div className="w-full flex flex-col items-center">
           {user ? (
             <div className="w-full flex gap-5 mt-10">
-              <div className="w-1/4">
+              <div className="hidden sm:block w-1/4">
                 <div className="w-full h-auto rounded-full border-2 border-[#31343A] overflow-hidden">
                   <img
                     src={user?.data?.avatar_url || githubLogo}
@@ -49,13 +55,22 @@ const Home = () => {
               </div>
               <div className="w-full border-2 border-[#30363D] rounded-xl p-5 text-white">
                 <div className="flex justify-between items-center flex-wrap gap-5">
-                  <div className="text-start">
-                    <h1 className="font-semibold text-3xl">
-                      {user?.data?.name}
-                    </h1>
-                    <p className="text-lg font-medium text-[#31343A]">
-                      {user?.data?.login}
-                    </p>
+                  <div className="text-start flex gap-5">
+                    <div className="h-16 w-16 block sm:hidden rounded-full border-2 border-[#31343A] overflow-hidden">
+                      <img
+                        src={user?.data?.avatar_url || githubLogo}
+                        alt="user"
+                        className="w-full h-auto"
+                      />
+                    </div>
+                    <div>
+                      <h1 className="font-semibold text-3xl">
+                        {user?.data?.name}
+                      </h1>
+                      <p className="text-lg font-medium text-[#31343A]">
+                        {user?.data?.login}
+                      </p>
+                    </div>
                   </div>
                   <div className="flex gap-5">
                     <div>Followers: {user?.data?.followers}</div>

@@ -1,10 +1,14 @@
 import { useState } from "react";
 import closeIcon from "../assets/images/close-svgrepo-com.svg";
 import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import PropTypes from "prop-types";
 
 const CreateRepoModdal = ({ open, onClose, refreshRepos }) => {
   const token = import.meta.env.VITE_GITHUB_TOKEN;
   const [formData, setFormData] = useState({ name: "", description: "" });
+  const [loading, setLoading] = useState(false);
   const disable = !formData.name || !formData.description;
 
   const handleInput = (e) => {
@@ -15,20 +19,24 @@ const CreateRepoModdal = ({ open, onClose, refreshRepos }) => {
   };
 
   const handleCreateRepo = async () => {
+    setLoading(true);
     try {
-      const response = await axios.post(
-        `https://api.github.com/user/repos`,
-        formData,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(response?.data);
-      refreshRepos();
+      await axios.post(`https://api.github.com/user/repos`, formData, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success("Repository created successfully");
+      setTimeout(() => {
+        refreshRepos();
+        onClose(false);
+        setLoading(false);
+        setFormData({ name: "", description: "" });
+      }, 500);
+      // I used the set time
     } catch (error) {
-      console.log(error?.response);
+      toast.error(error?.message);
+      setLoading(false);
     }
   };
 
@@ -38,6 +46,7 @@ const CreateRepoModdal = ({ open, onClose, refreshRepos }) => {
   return (
     <div className="fixed top-0 left-0 h-full w-full bg-white bg-opacity-50 flex justify-center items-center">
       <div className="p-3 max-w-3xl w-full bg-white rounded-lg m-5">
+        <ToastContainer />
         <img
           src={closeIcon}
           alt="close"
@@ -75,14 +84,20 @@ const CreateRepoModdal = ({ open, onClose, refreshRepos }) => {
             onClick={handleCreateRepo}
           >
             Create Repo
-            {disable && (
-              <div className="absolute w-full h-full bg-white bg-opacity-45" />
+            {(loading || disable) && (
+              <div className="absolute w-full h-full top-0 left-0 bg-white bg-opacity-45" />
             )}
           </button>
         </div>
       </div>
     </div>
   );
+};
+
+CreateRepoModdal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  refreshRepos: PropTypes.func.isRequired,
 };
 
 export default CreateRepoModdal;

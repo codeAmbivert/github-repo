@@ -1,17 +1,22 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import forkIcon from "../assets/images/code-fork-svgrepo-com.svg";
 import starIcon from "../assets/images/star-svgrepo-com.svg";
 import CreateRepoModdal from "../components/CreateRepoModal";
+import DeleteRepoModal from "../components/DeleteRepoModal";
+import UpadateRepoModal from "../components/UpdateRepoModal";
 
 const Repositories = () => {
   const token = import.meta.env.VITE_GITHUB_TOKEN;
   const [repos, setRepos] = useState([]);
+  const [selectedRepo, setSelectedRepo] = useState("");
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [openModal, setOpenModal] = useState(false);
+  const [openCreate, setOpenCreate] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [openUpdate, setOpenUpdate] = useState(false);
   const reposPerPage = 10;
 
   // console.log({ totalPagenations });
@@ -28,14 +33,20 @@ const Repositories = () => {
       );
       setRepos(response?.data);
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.message);
     }
   };
+
   useEffect(() => {
     getUserRepos();
   }, []);
   return (
     <main className="min-h-[100vh] w-full bg-[#010409] text-white">
+      <div className="flex justify-start">
+        <Link to="/" className="text-xl text-blue-400">
+          &lt;codeAmbivert /&gt;
+        </Link>
+      </div>
       <div className="min-h-[100vh] max-w-6xl mx-auto pt-20 w-full">
         <h2 className="font-semibold text-2xl">
           <span className="capitalize">Titilope Chisom&apos;s</span>{" "}
@@ -53,18 +64,13 @@ const Repositories = () => {
             />
           </div>
           <div
-            className={`bg-[#292E36] h-full rounded-md p-1 w-full sm:w-40 text-white text-center border font-medium text-lg border-[#30363D] cursor-pointer`}
-            // onClick={() => setUser(null)}
+            className={`bg-[#292E36] h-full rounded-md p-1 w-full sm:w-40 mt-5 ml-auto text-white text-center border font-medium text-lg border-[#30363D] cursor-pointer`}
+            onClick={() => setOpenCreate(true)}
           >
-            Filter By
+            Create New Repo
           </div>
         </div>
-        <div
-          className={`bg-[#292E36] h-full rounded-md p-1 w-full sm:w-40 mt-5 ml-auto text-white text-center border font-medium text-lg border-[#30363D] cursor-pointer`}
-          onClick={() => setOpenModal(true)}
-        >
-          Create New Repo
-        </div>
+
         {search.length < 1 ? (
           <div className="mt-5 w-full">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -73,15 +79,17 @@ const Repositories = () => {
                 const endIndex = startIndex + reposPerPage;
                 if (index >= startIndex && index < endIndex) {
                   return (
-                    <Link
-                      to={`/repository/${item?.id}`}
+                    <div
                       key={item?.id}
                       className="text-start border-2 border-[#30363D] p-3 rounded-lg"
                     >
                       <div className="flex gap-5 justify-between flex-wrap">
-                        <p className="text-blue-400 text-lg font-semibold">
+                        <Link
+                          to={`/repository/${item?.name}`}
+                          className="text-blue-400 text-lg font-semibold hover:underline"
+                        >
                           {item?.name}
-                        </p>
+                        </Link>
                         <p className="p-1 px-4 text-xs border border-[#30363D] rounded-full capitalize">
                           {item?.visibility}
                         </p>
@@ -98,7 +106,27 @@ const Repositories = () => {
                           {item?.stargazers_count}
                         </div>
                       </div>
-                    </Link>
+                      <div className="flex gap-2 mt-4 font-medium">
+                        <div
+                          className="text-white bg-blue-500 py-1 px-2 text-sm rounded-lg cursor-pointer"
+                          onClick={() => {
+                            setOpenUpdate(true);
+                            setSelectedRepo(item?.name);
+                          }}
+                        >
+                          Update
+                        </div>
+                        <div
+                          className="text-white bg-red-500 py-1 px-2 text-sm rounded-lg cursor-pointer"
+                          onClick={() => {
+                            setOpenDelete(true);
+                            setSelectedRepo(item?.name);
+                          }}
+                        >
+                          Delete
+                        </div>
+                      </div>
+                    </div>
                   );
                 }
                 return null;
@@ -147,15 +175,17 @@ const Repositories = () => {
                   item?.name?.toLowerCase().includes(search.toLocaleLowerCase())
                 )
                 .map((item) => (
-                  <Link
-                    to={item?.html_url}
+                  <div
                     key={item?.id}
                     className="text-start border-2 border-[#30363D] p-3 rounded-lg block mb-4"
                   >
                     <div className="flex justify-between items-center">
-                      <p className="text-blue-400 text-lg font-semibold">
+                      <Link
+                        to={`/repository/${item?.name}`}
+                        className="text-blue-400 text-lg font-semibold"
+                      >
                         {item?.name}
-                      </p>
+                      </Link>
                       {item?.visibility && (
                         <p className="p-1 px-4 text-xs border border-[#30363D] rounded-full capitalize">
                           {item?.visibility}
@@ -173,15 +203,49 @@ const Repositories = () => {
                         {item?.stargazers_count}
                       </div>
                     </div>
-                  </Link>
+                    <div className="flex gap-2 mt-4 font-medium">
+                      <div
+                        className="text-white bg-blue-500 py-1 px-2 text-sm rounded-lg cursor-pointer"
+                        onClick={() => {
+                          setOpenUpdate(true);
+                          setSelectedRepo(item?.name);
+                        }}
+                      >
+                        Update
+                      </div>
+                      <div
+                        className="text-white bg-red-500 py-1 px-2 text-sm rounded-lg cursor-pointer"
+                        onClick={() => {
+                          setOpenDelete(true);
+                          setSelectedRepo(item?.name);
+                        }}
+                      >
+                        Delete
+                      </div>
+                    </div>
+                  </div>
                 ))}
             </div>
           </div>
         )}
       </div>
+      <DeleteRepoModal
+        open={openDelete}
+        onClose={setOpenDelete}
+        repo={selectedRepo}
+        updateRepo={setSelectedRepo}
+        refreshRepos={getUserRepos}
+      />
       <CreateRepoModdal
-        open={openModal}
-        onClose={setOpenModal}
+        open={openCreate}
+        onClose={setOpenCreate}
+        refreshRepos={getUserRepos}
+      />
+      <UpadateRepoModal
+        open={openUpdate}
+        onClose={setOpenUpdate}
+        repo={selectedRepo}
+        updateRepo={setSelectedRepo}
         refreshRepos={getUserRepos}
       />
     </main>

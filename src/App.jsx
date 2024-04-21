@@ -4,6 +4,7 @@ import "./App.css";
 import Repositories from "./pages/Repositories";
 import Repository from "./pages/Repository";
 import ErrorPage from "./pages/ErrorPage";
+import ErrorBoundaryTest from "./pages/ErrorBoundaryTest";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="repositories" element={<Repositories />} />
           <Route path="repository/:id" element={<Repository />} />
+          <Route path="error-boundary" element={<ErrorBoundaryTest />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
