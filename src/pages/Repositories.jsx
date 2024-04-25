@@ -55,7 +55,7 @@ const Repositories = () => {
           <span className="capitalize">Titilope Chisom&apos;s</span>{" "}
           repositories
         </h2>
-        <div className="grid grid-cols-1 sm:flex sm:flex-wrap gap-5 sm:justify-between sm:items-center w-full text-white my-5">
+        <div className="grid grid-cols-1 sm:flex sm:flex-wrap sm:justify-between sm:items-center w-full text-white mt-5 mb-8">
           <div className="max-w-2xl bg-[#0D1117] w-full p-2 border border-[#30363D] rounded-xl flex gap-2 items-center">
             <input
               type="text"
@@ -67,7 +67,7 @@ const Repositories = () => {
             />
           </div>
           <div
-            className={`bg-[#292E36] h-full rounded-md p-1 flex justify-center items-center w-full sm:w-40 mt-5 ml-auto text-white text-center border font-medium text-lg border-[#30363D] cursor-pointer`}
+            className={`bg-[#292E36] h-full rounded-md p-1 flex justify-center items-center w-full sm:w-40 mt-4 sm:mt-5 ml-auto text-white text-center border font-medium sm:text-lg border-[#30363D] cursor-pointer`}
             onClick={() => setOpenCreate(true)}
           >
             Create New Repo
