@@ -67,7 +67,7 @@ const Repositories = () => {
             />
           </div>
           <div
-            className={`bg-[#292E36] h-full rounded-md p-1 w-full sm:w-40 mt-5 ml-auto text-white text-center border font-medium text-lg border-[#30363D] cursor-pointer`}
+            className={`bg-[#292E36] h-full rounded-md p-1 flex justify-center items-center w-full sm:w-40 mt-5 mb-5 ml-auto text-white text-center border font-medium text-lg border-[#30363D] cursor-pointer`}
             onClick={() => setOpenCreate(true)}
           >
             Create New Repo
