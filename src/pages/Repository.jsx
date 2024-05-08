@@ -4,7 +4,7 @@ import githubLogo from "../assets/images/githubLogo.svg";
 import { Link, useParams } from "react-router-dom";
 import forkIcon from "../assets/images/code-fork-svgrepo-com.svg";
 import starIcon from "../assets/images/star-svgrepo-com.svg";
-import DeleteRepoModal from "../components/DeleteRepoModal";
+// import DeleteRepoModal from "../components/DeleteRepoModal";
 import UpadateRepoModal from "../components/UpdateRepoModal";
 import { toast } from "react-toastify";
 
@@ -13,7 +13,7 @@ const Repository = () => {
   const { id } = useParams();
   const [repo, setRepo] = useState({});
   const [openUpdate, setOpenUpdate] = useState(false);
-  const [openDelete, setOpenDelete] = useState(false);
+  // const [openDelete, setOpenDelete] = useState(false);
   const [selectedRepo, setSelectedRepo] = useState("");
   console.log(repo);
 
@@ -128,17 +128,17 @@ const Repository = () => {
             </div>
             <div
               className="text-white bg-red-500 py-1 px-2 text-sm rounded-lg cursor-pointer"
-              onClick={() => {
-                setOpenDelete(true);
-                setSelectedRepo(repo?.name);
-              }}
+              // onClick={() => {
+              //   setOpenDelete(true);
+              //   setSelectedRepo(repo?.name);
+              // }}
             >
               Delete
             </div>
           </div>
         </div>
       </div>
-{/*      <DeleteRepoModal
+      {/*      <DeleteRepoModal
        open={openDelete}
         onClose={setOpenDelete}
         repo={selectedRepo}

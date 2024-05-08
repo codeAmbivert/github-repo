@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import forkIcon from "../assets/images/code-fork-svgrepo-com.svg";
 import starIcon from "../assets/images/star-svgrepo-com.svg";
 import CreateRepoModdal from "../components/CreateRepoModal";
-import DeleteRepoModal from "../components/DeleteRepoModal";
+// import DeleteRepoModal from "../components/DeleteRepoModal";
 import UpadateRepoModal from "../components/UpdateRepoModal";
 
 const Repositories = () => {
@@ -15,7 +15,7 @@ const Repositories = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [openCreate, setOpenCreate] = useState(false);
-  const [openDelete, setOpenDelete] = useState(false);
+  // const [openDelete, setOpenDelete] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [loading, setLoading] = useState(true);
   const reposPerPage = 10;
@@ -122,10 +122,10 @@ const Repositories = () => {
                         </div>
                         <div
                           className="text-white bg-red-500 py-1 px-2 text-sm rounded-lg cursor-pointer"
-                          onClick={() => {
-                            setOpenDelete(true);
-                            setSelectedRepo(item?.name);
-                          }}
+                          // onClick={() => {
+                          //   setOpenDelete(true);
+                          //   setSelectedRepo(item?.name);
+                          // }}
                         >
                           Delete
                         </div>
@@ -219,10 +219,10 @@ const Repositories = () => {
                       </div>
                       <div
                         className="text-white bg-red-500 py-1 px-2 text-sm rounded-lg cursor-pointer"
-                        onClick={() => {
-                          setOpenDelete(true);
-                          setSelectedRepo(item?.name);
-                        }}
+                        // onClick={() => {
+                        //   setOpenDelete(true);
+                        //   setSelectedRepo(item?.name);
+                        // }}
                       >
                         Delete
                       </div>
@@ -233,7 +233,7 @@ const Repositories = () => {
           </div>
         )}
       </div>
-  {/*    <DeleteRepoModal
+      {/*    <DeleteRepoModal
         open={openDelete}
        onClose={setOpenDelete}
         repo={selectedRepo}
