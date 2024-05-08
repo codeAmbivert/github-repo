@@ -138,13 +138,13 @@ const Repository = () => {
           </div>
         </div>
       </div>
-//      <DeleteRepoModal
- //       open={openDelete}
-//        onClose={setOpenDelete}
-//        repo={selectedRepo}
-//        updateRepo={setSelectedRepo}
-//        refreshRepos={getRepo}
-//      />
+{/*      <DeleteRepoModal
+       open={openDelete}
+        onClose={setOpenDelete}
+        repo={selectedRepo}
+        updateRepo={setSelectedRepo}
+       refreshRepos={getRepo}
+     /> */}
       <UpadateRepoModal
         open={openUpdate}
         onClose={setOpenUpdate}
