@@ -233,13 +233,13 @@ const Repositories = () => {
           </div>
         )}
       </div>
-      <DeleteRepoModal
-        open={openDelete}
-        onClose={setOpenDelete}
-        repo={selectedRepo}
-        updateRepo={setSelectedRepo}
-        refreshRepos={getUserRepos}
-      />
+  //    <DeleteRepoModal
+  //      open={openDelete}
+  //     onClose={setOpenDelete}
+   //     repo={selectedRepo}
+  //      updateRepo={setSelectedRepo}
+  //      refreshRepos={getUserRepos}
+  //    />
       <CreateRepoModdal
         open={openCreate}
         onClose={setOpenCreate}
